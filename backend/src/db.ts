@@ -3,10 +3,15 @@ import fs from 'fs';
 import path from 'path';
 import { config } from './config';
 
-fs.mkdirSync(path.dirname(config.dbPath), { recursive: true });
+const isInMemory = config.dbPath === ':memory:';
+if (!isInMemory) {
+  fs.mkdirSync(path.dirname(config.dbPath), { recursive: true });
+}
 
 export const db = new Database(config.dbPath);
-db.pragma('journal_mode = WAL');
+if (!isInMemory) {
+  db.pragma('journal_mode = WAL');
+}
 db.pragma('foreign_keys = ON');
 
 db.exec(`

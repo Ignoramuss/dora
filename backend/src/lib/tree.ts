@@ -78,7 +78,13 @@ export function buildTree(
       if (DEFAULT_HIDDEN.includes(name)) return null;
       if (LOCK_FILES.has(name)) return null;
       if (name.startsWith('.') && relPath !== '') return null;
-      if (relPath && ig.ignores(relPath)) return null;
+      // The `ignore` library distinguishes file vs dir by trailing slash, so
+      // patterns like `build/` only match when we query with that slash.
+      if (relPath) {
+        const isDir = stat.isDirectory();
+        if (ig.ignores(relPath)) return null;
+        if (isDir && ig.ignores(relPath + '/')) return null;
+      }
     }
 
     if (stat.isDirectory()) {
@@ -127,9 +133,14 @@ export function buildTree(
 }
 
 export function safeJoin(rootPath: string, relPath: string): string | null {
-  const normalized = path
-    .normalize(relPath)
-    .replace(/^([/\\])+/, '');
+  // Reject absolute paths outright — callers should always be passing
+  // repo-relative paths. Treating an absolute path as relative would be a
+  // confusing footgun.
+  if (path.isAbsolute(relPath)) return null;
+  const normalized = path.normalize(relPath);
+  // path.normalize collapses interior `..` but leaves a leading `..` intact;
+  // anything that escapes the root must be rejected.
+  if (normalized.split(path.sep)[0] === '..') return null;
   const target = path.resolve(rootPath, normalized);
   const root = path.resolve(rootPath);
   if (!target.startsWith(root + path.sep) && target !== root) return null;

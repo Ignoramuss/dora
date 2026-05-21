@@ -24,6 +24,17 @@ npm run dev
 - Frontend: <http://localhost:5173>
 - Backend:  <http://localhost:3001>
 
+## Tests
+
+The backend has a Vitest + Supertest suite that exercises the schema, every
+HTTP route's validation, file-tree + gitignore handling, symbol search, and
+the path-traversal guard.
+
+```bash
+npm test                     # one-shot
+npm --workspace backend run test:watch
+```
+
 ## Environment
 
 | Variable | Description | Default |
