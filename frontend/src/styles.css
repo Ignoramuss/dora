@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+/* Shiki output should fill available space */
+.shiki-wrapper pre {
+  background: transparent !important;
+  margin: 0;
+  padding: 0;
+}
+
+.code-line {
+  display: flex;
+  align-items: stretch;
+  min-height: 1.4em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+.code-line:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.line-number {
+  flex-shrink: 0;
+  width: 48px;
+  padding-right: 12px;
+  text-align: right;
+  color: #4b5563;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.line-content {
+  flex: 1 1 auto;
+  position: relative;
+  padding-right: 16px;
+  white-space: pre;
+}
+
+.highlight-yellow { background: rgba(252, 211, 77, 0.18); }
+.highlight-green  { background: rgba(74, 222, 128, 0.18); }
+.highlight-blue   { background: rgba(96, 165, 250, 0.18); }
+.highlight-pink   { background: rgba(244, 114, 182, 0.18); }
+
+.highlight-yellow.has-explanation { box-shadow: inset 2px 0 0 rgba(252, 211, 77, 0.9); }
+.highlight-green.has-explanation  { box-shadow: inset 2px 0 0 rgba(74, 222, 128, 0.9); }
+.highlight-blue.has-explanation   { box-shadow: inset 2px 0 0 rgba(96, 165, 250, 0.9); }
+.highlight-pink.has-explanation   { box-shadow: inset 2px 0 0 rgba(244, 114, 182, 0.9); }
+
+/* Markdown styling in the AI panel */
+.markdown {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #d8dde6;
+}
+.markdown h1, .markdown h2, .markdown h3 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+  color: #f3f4f6;
+}
+.markdown h1 { font-size: 1.3em; }
+.markdown h2 { font-size: 1.15em; }
+.markdown h3 { font-size: 1.05em; }
+.markdown p { margin: 0.6em 0; }
+.markdown ul, .markdown ol { padding-left: 1.4em; margin: 0.6em 0; }
+.markdown li { margin: 0.2em 0; }
+.markdown code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+.markdown pre {
+  background: #11151c;
+  padding: 10px 12px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 0.7em 0;
+  border: 1px solid #1c222d;
+}
+.markdown pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 12.5px;
+}
+.markdown a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+.markdown strong { color: #f3f4f6; }
+.markdown blockquote {
+  border-left: 3px solid #3c4757;
+  padding-left: 0.9em;
+  color: #b3bccb;
+  margin: 0.7em 0;
+}
+
+/* Resizers */
+.resizer-vertical {
+  width: 4px;
+  cursor: col-resize;
+  background: transparent;
+  transition: background 0.15s;
+}
+.resizer-vertical:hover, .resizer-vertical.active {
+  background: rgba(96, 165, 250, 0.4);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: #2a3240;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover { background: #3c4757; }
+::-webkit-scrollbar-track { background: transparent; }
