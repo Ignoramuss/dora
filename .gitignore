@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.repos/
+data/
+*.db
+*.db-journal
+.env
+.env.local
+.DS_Store
+*.log
+.vite/
+coverage/
+tsconfig.tsbuildinfo
